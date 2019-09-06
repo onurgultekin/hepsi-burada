@@ -1,28 +1,33 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" class="App min-w-screen min-h-screen flex flex-col bg-grey-lightest font-sans">
+    <Header />
+    <div class="container mx-auto px-4">
+      <SubmitLink />
+      <Links v-if="!submitClicked" />
+      <CreateLink v-else />
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { mapState } from 'vuex'
+import Header from '@/components/Header.vue'
+import SubmitLink from '@/components/SubmitLink.vue'
+import CreateLink from '@/components/CreateLink.vue'
+import Links from '@/components/Links.vue'
 
 export default {
-  name: 'app',
+  name: 'App',
   components: {
-    HelloWorld
-  }
+    Header,
+    SubmitLink,
+    Links,
+    CreateLink
+  },
+  computed:
+    mapState({
+      submitClicked: state => state.submitClicked,
+      links: state => state.links
+    })
 }
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
